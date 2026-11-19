@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "flux": {
+    "fileMatch": ["^clusters/.*\\.(yaml|yml)$"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["flux"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ]
+}

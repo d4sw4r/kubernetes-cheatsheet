@@ -99,7 +99,9 @@ nav:
           - HelmRelease: gitops/fluxcd/helmrelease.md
           - Secrets mit SOPS: gitops/fluxcd/sops.md
           - Notifications: gitops/fluxcd/notifications.md
+          - Image Automation: gitops/fluxcd/image-automation.md
           - Debugging: gitops/fluxcd/debugging.md
+      - Renovate: gitops/renovate.md
   - Tools:
       - tools/index.md
       - Pluto: tools/pluto.md

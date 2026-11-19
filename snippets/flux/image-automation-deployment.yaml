@@ -1,0 +1,22 @@
+# Marker-Kommentar sagt der ImageUpdateAutomation, welche Zeile sie anpassen darf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podinfo
+  template:
+    metadata:
+      labels:
+        app: podinfo
+    spec:
+      containers:
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.7.0  # {"$imagepolicy": "flux-system:podinfo"}
+          ports:
+            - containerPort: 9898

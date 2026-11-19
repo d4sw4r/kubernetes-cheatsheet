@@ -36,6 +36,7 @@ flux diff kustomization apps --path ./apps/production   # Lokale Änderungen vs.
 - [HelmRelease](helmrelease.md) – inkl. Beispiele für cert-manager, Longhorn, kube-prometheus-stack, Cilium
 - [Secrets mit SOPS](sops.md)
 - [Notifications](notifications.md) – Discord-Alerts
+- [Image Automation](image-automation.md) – neue Image-Tags automatisch committen (vs. [Renovate](../renovate.md))
 - [Debugging](debugging.md)
 
 ## Meine Flux-Cluster
