@@ -70,6 +70,7 @@ nav:
   - Cheatsheet:
       - cheatsheet/index.md
       - kubectl: cheatsheet/kubectl.md
+      - Helm: cheatsheet/helm.md
       - Troubleshooting: cheatsheet/troubleshooting.md
   - Konzepte:
       - concepts/index.md
