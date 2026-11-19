@@ -1,0 +1,53 @@
+# Flux Image Automation: neue Image-Tags erkennen und per Commit ins Git-Repo schreiben
+# Voraussetzung: image-reflector-controller + image-automation-controller (siehe Doku-Seite)
+---
+# 1. Registry scannen
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: podinfo
+  namespace: flux-system
+spec:
+  image: ghcr.io/stefanprodan/podinfo
+  interval: 5m
+  # secretRef:
+  #   name: regcred   # für private Registries (dockerconfigjson)
+---
+# 2. Regel, welcher Tag "der neueste" ist
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: podinfo
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: podinfo
+  policy:
+    semver:
+      range: ">=6.0.0 <7.0.0"  # nur Minor/Patch innerhalb von v6
+---
+# 3. Ergebnis zurück ins Git-Repo committen
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxcdbot
+        email: fluxcdbot@users.noreply.github.com
+      messageTemplate: "chore(images): update {{range .Changed.Changes}}{{.OldValue}} -> {{.NewValue}} {{end}}"
+    push:
+      branch: main  # oder z. B. "flux-image-updates" und per PR mergen
+  update:
+    path: ./apps
+    strategy: Setters

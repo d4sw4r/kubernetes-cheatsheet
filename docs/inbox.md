@@ -8,10 +8,11 @@ history | grep -E 'kubectl|flux|helm|talosctl|cilium|pluto|kubescape' | sort -u 
 
 ## Offen
 
-- [ ] Flux Image Automation (ImageRepository / ImagePolicy / ImageUpdateAutomation) dokumentieren
-- [ ] Renovate für Flux-Repos dokumentieren (`renovate.json` aus `talos-k8s`)
+- [ ] talos-k8s: Renovate-Pattern auf `infra/` erweitern und Chart-Versionen pinnen (siehe [Renovate](gitops/renovate.md#gotchas-learnings))
+- [ ] exa_website_go: `config:base` → `config:recommended`
 - [ ] Ergebnis des llmkube-PoCs ergänzen
 - [ ] Eigene Erfahrungen zu kubectl radar ergänzen
 - [ ] Helm-Notizen aus `d4sw4r/kubernetes` (Gitea, Drone CI) einsortieren oder verwerfen
 - [x] Flux Notifications dokumentieren
+- [x] Flux Image Automation und Renovate dokumentieren
 - [x] Snippets aus den eigenen Repos einsammeln
