@@ -54,7 +54,7 @@ tags: [renovate, gitops, flux]
 - **Ohne `version` kein Update:** HelmReleases ohne `spec.chart.spec.version` kann Renovate nicht pinnen – Flux nimmt dann einfach immer die neueste Version, auch neue Majors. In `talos-k8s` waren das cert-manager, Longhorn und kube-prometheus-stack; seit [talos-k8s#6](https://github.com/d4sw4r/talos-k8s/pull/6) gepinnt.
 - **Beim Nachpinnen die aktuelle Version nehmen:** Lief ein Chart ohne `version`, ist im Cluster bereits die neueste Version installiert. Eine ältere Version zu pinnen würde ein Downgrade auslösen – vorher mit `flux get helmreleases -A` prüfen.
 - **`fileMatch` → `managerFilePatterns`:** Neuere Renovate-Versionen haben `fileMatch` umbenannt; die Migration schlägt Renovate selbst per PR vor.
-- **`config:base` ist veraltet** (noch in `exa_website_go`) – durch `config:recommended` ersetzen.
+- **`config:base` ist veraltet** – durch `config:recommended` ersetzen (in `exa_website_go` umgestellt: [exa_website_go#95](https://github.com/d4sw4r/exa_website_go/pull/95)). Dort war außerdem ein überzähliges Komma drin – `python -m json.tool renovate.json` prüft schnell, ob die Datei gültiges JSON ist.
 - **`platformAutomerge: true`** nutzt GitHubs Auto-Merge: Renovate muss nicht erneut laufen, um zu mergen – braucht aber Branch Protection mit Required Checks, sonst wird sofort gemergt.
 - Das **Dependency Dashboard** (Issue im Repo) zeigt alle offenen und blockierten Updates – erster Blick, wenn „nichts passiert“.
 
