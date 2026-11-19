@@ -5,9 +5,12 @@ Persönliche Sammlung von Befehlen, Manifesten, GitOps-Setups, Tools und PoCs ru
 <div class="grid cards" markdown>
 
 - :material-console: **[Cheatsheet](cheatsheet/index.md)** – kubectl-Befehle & Troubleshooting
+- :material-server: **[Distributionen](distributions/index.md)** – Talos, k3s, kubeadm
 - :material-file-code: **[Manifeste](manifests/index.md)** – getestete YAML-Snippets
-- :material-source-branch: **[FluxCD](gitops/fluxcd/index.md)** – Bootstrap, Kustomizations, HelmReleases, SOPS
-- :material-tools: **[Tools](tools/index.md)** – Pluto, Kubescape, kuberadar, …
+- :material-lan: **[Networking](networking/index.md)** – Cilium & Gateway API, Traefik, MetalLB
+- :material-shield-lock: **[Security](security/cert-manager.md)** – cert-manager
+- :material-source-branch: **[FluxCD](gitops/fluxcd/index.md)** – Layout, HelmReleases, SOPS, Notifications
+- :material-tools: **[Tools](tools/index.md)** – Pluto, Kubescape, kubectl radar
 - :material-flask: **[PoCs](pocs/index.md)** – Experimente & Learnings
 - :material-inbox: **[Inbox](inbox.md)** – Schnellnotizen, noch nicht einsortiert
 

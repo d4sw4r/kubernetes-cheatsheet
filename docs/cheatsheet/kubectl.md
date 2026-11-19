@@ -81,6 +81,39 @@ kubectl cluster-info dump                                             # Dump cur
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
 ```
 
+## Rollout
+
+```bash
+kubectl rollout restart deployment/my-dep            # Pods neu starten (z. B. nach ConfigMap-Änderung)
+kubectl rollout status deployment/my-dep             # Warten bis fertig
+kubectl rollout undo deployment/my-dep               # Letzte Revision zurück
+```
+
+## Secrets
+
+```bash
+kubectl get secret my-secret -n my-ns --template={{.data.password}} | base64 -d     # Einen Key auslesen
+kubectl create secret docker-registry regcred --docker-server=<registry> \
+  --docker-username=<user> --docker-password=<pass>                                  # Pull-Secret
+```
+
+## Löschen mit Wildcard
+
+`kubectl delete` kennt keine Wildcards – Namen per `awk` filtern und an `xargs` geben:
+
+```bash
+kubectl get configmap -n my-ns --no-headers=true | awk '/dashboard-configmap/{print $1}'   # erst anschauen!
+kubectl get configmap -n my-ns --no-headers=true | awk '/dashboard-configmap/{print $1}' | xargs kubectl delete -n my-ns configmap
+```
+
+## Lokales Image in minikube
+
+```bash
+eval $(minikube docker-env)                     # Docker-CLI auf den minikube-Daemon zeigen lassen
+docker build -t in-cluster .
+kubectl run --rm -i demo --image=in-cluster --image-pull-policy=Never
+```
+
 ## Quellen
 
 - [kubectl Quick Reference](https://kubernetes.io/docs/reference/kubectl/quick-reference/)

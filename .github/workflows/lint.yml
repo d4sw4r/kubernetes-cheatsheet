@@ -25,12 +25,15 @@ jobs:
           go install github.com/fairwindsops/pluto/v5/cmd/pluto@latest
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
 
-      - name: kubeconform (inkl. Flux-CRDs)
+      # snippets/config/ enthält keine K8s-Ressourcen (Talos, k3s, hetzner-k3s) -> nur yamllint
+      # Model/InferenceService (llmkube) haben kein Schema im CRDs-Catalog
+      - name: kubeconform (inkl. CRDs)
         run: |
           kubeconform -strict -summary \
+            -skip Model,InferenceService \
             -schema-location default \
             -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
-            snippets/manifests/ snippets/flux/
+            snippets/manifests snippets/flux snippets/networking snippets/security snippets/pocs
 
       - name: pluto (veraltete APIs)
         run: pluto detect-files -d snippets/ -owide

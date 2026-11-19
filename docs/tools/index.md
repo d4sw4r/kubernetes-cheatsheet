@@ -4,7 +4,7 @@
 |---|---|
 | [Pluto](pluto.md) | Veraltete/entfernte API-Versionen finden (vor Cluster-Upgrades) |
 | [Kubescape](kubescape.md) | Security- & Compliance-Scans (NSA, MITRE, CIS) |
-| [kuberadar](kuberadar.md) | TODO: Zweck beschreiben |
+| [kubectl radar](kubectl-radar.md) | Lokales Web-Dashboard (Topologie, Events, Helm, Flux) |
 
 !!! tip "Neues Tool hinzufügen"
-    `docs/tools/kuberadar.md` als Vorlage kopieren und in `mkdocs.yml` eintragen.
+    Eine bestehende Tool-Seite als Vorlage kopieren (Wofür? → Installation → Quick commands → Gotchas → Quellen) und in `mkdocs.yml` eintragen.

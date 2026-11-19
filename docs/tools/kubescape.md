@@ -37,8 +37,8 @@ kubescape scan --exceptions snippets/tools/kubescape-exceptions.json
 
 ## Gotchas / Learnings
 
-!!! note "TODO"
-    Eigene Erfahrungen ergänzen.
+- Lokale Ordner direkt scannen, z. B. `kubescape scan deployment/` – praktisch vor dem Commit.
+- In Lab-Clustern (Talos mit `enforce: privileged`) gibt es naturgemäß viele Funde bei `kube-system` / CNI – dafür Ausnahmen pflegen statt die Ergebnisse zu ignorieren.
 
 ## Quellen
 

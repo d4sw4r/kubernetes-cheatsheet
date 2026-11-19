@@ -19,3 +19,11 @@ Liefert eine `index.html`, die im Deployment als Volume gemountet wird.
 
 !!! warning "Gotcha"
     `image: nginx:latest` ist für Demos ok – in echten Setups immer eine feste Version (oder Digest) verwenden.
+
+## Image-Pull-Secret
+
+```yaml title="snippets/manifests/docker-registry-secret.yaml"
+--8<-- "snippets/manifests/docker-registry-secret.yaml"
+```
+
+Im Pod per `spec.imagePullSecrets: [{name: regcred}]` referenzieren.

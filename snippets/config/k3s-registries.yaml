@@ -1,0 +1,5 @@
+# /etc/rancher/k3s/registries.yaml – danach k3s neu starten
+mirrors:
+  my-registry:
+    endpoint:
+      - "http://registry.example.local"

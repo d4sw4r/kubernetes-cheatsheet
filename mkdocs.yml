@@ -45,6 +45,9 @@ markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -70,25 +73,42 @@ nav:
       - Troubleshooting: cheatsheet/troubleshooting.md
   - Konzepte:
       - concepts/index.md
+  - Distributionen:
+      - distributions/index.md
+      - Talos: distributions/talos.md
+      - k3s: distributions/k3s.md
+      - kubeadm: distributions/kubeadm.md
   - Manifeste:
       - manifests/index.md
       - Workloads: manifests/workloads.md
       - Networking: manifests/networking.md
       - Storage: manifests/storage.md
+  - Networking:
+      - networking/index.md
+      - Cilium & Gateway API: networking/cilium.md
+      - Traefik: networking/traefik.md
+      - MetalLB: networking/metallb.md
+  - Security:
+      - cert-manager: security/cert-manager.md
   - GitOps:
       - FluxCD:
           - gitops/fluxcd/index.md
           - Bootstrap: gitops/fluxcd/bootstrap.md
+          - Repo-Layout: gitops/fluxcd/layout.md
           - Sources & Kustomizations: gitops/fluxcd/kustomization.md
           - HelmRelease: gitops/fluxcd/helmrelease.md
           - Secrets mit SOPS: gitops/fluxcd/sops.md
+          - Notifications: gitops/fluxcd/notifications.md
           - Debugging: gitops/fluxcd/debugging.md
   - Tools:
       - tools/index.md
       - Pluto: tools/pluto.md
       - Kubescape: tools/kubescape.md
-      - kuberadar: tools/kuberadar.md
+      - kubectl radar: tools/kubectl-radar.md
   - PoCs:
       - pocs/index.md
+      - Talos auf Hetzner: pocs/talos-hetzner.md
+      - LLM-Inference (llmkube): pocs/llmkube.md
+      - Prometheus Operator: pocs/prometheus-operator.md
       - Vorlage: pocs/_template.md
   - Inbox: inbox.md

@@ -1,0 +1,14 @@
+# Benötigt einen entryPoint "collectd" (UDP) in Traefik, siehe k3s-traefik-helmchartconfig.yaml
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  name: collectd-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - collectd
+  routes:
+    - services:
+        - name: collectd-service
+          port: 25826

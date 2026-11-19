@@ -1,0 +1,66 @@
+# Reihenfolge: secrets -> infra/base -> certs -> apps (aus talos-k8s)
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system-secrets
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./secrets/my-cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system-base
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./infra/base
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cert-manager
+      namespace: kube-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system-certs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: flux-system-base
+  interval: 10m0s
+  path: ./certs
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system-apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: flux-system-certs
+  interval: 10m0s
+  path: ./apps/my-cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

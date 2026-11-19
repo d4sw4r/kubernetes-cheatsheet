@@ -31,27 +31,19 @@ flux diff kustomization apps --path ./apps/production   # Lokale Änderungen vs.
 ## Seiten
 
 - [Bootstrap](bootstrap.md)
+- [Repo-Layout & Kustomization-Kette](layout.md) – so sind meine Cluster aufgebaut
 - [Sources & Kustomizations](kustomization.md)
-- [HelmRelease](helmrelease.md)
+- [HelmRelease](helmrelease.md) – inkl. Beispiele für cert-manager, Longhorn, kube-prometheus-stack, Cilium
 - [Secrets mit SOPS](sops.md)
+- [Notifications](notifications.md) – Discord-Alerts
 - [Debugging](debugging.md)
 
-## Mein Repo-Layout
+## Meine Flux-Cluster
 
-!!! note "TODO"
-    Eigenes Layout dokumentieren. Verbreitet ist:
-
-```
-├── clusters/
-│   ├── production/      # flux-system + Kustomizations, die auf infra/apps zeigen
-│   └── staging/
-├── infrastructure/      # Controller, CRDs, Ingress, cert-manager, ...
-│   ├── base/
-│   └── production/
-└── apps/
-    ├── base/
-    └── production/
-```
+| Cluster | Repo | Inhalt |
+|---|---|---|
+| Talos auf Hetzner | `d4sw4r/talos-k8s` | Cilium, cert-manager, Longhorn, kube-prometheus-stack, SOPS, Discord-Alerts – [PoC](../../pocs/talos-hetzner.md) |
+| AI-Cluster | `d4sw4r/ai-cluster` | llmkube-Operator, Qwen3-Inference – [PoC](../../pocs/llmkube.md) |
 
 ## Quellen
 

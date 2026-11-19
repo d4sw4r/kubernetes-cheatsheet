@@ -1,0 +1,14 @@
+---
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: chat-prod
+  namespace: default
+spec:
+  modelRef: qwen3-8b
+  runtime: llamacpp
+  replicas: 1
+  priority: high
+  resources:
+    cpu: "2"
+    memory: 8Gi

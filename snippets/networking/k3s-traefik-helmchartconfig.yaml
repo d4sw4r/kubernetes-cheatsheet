@@ -1,0 +1,16 @@
+# Nach /var/lib/rancher/k3s/server/manifests/ kopieren – k3s überschreibt damit die Traefik-Values
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+      collectd:
+        port: 25826
+        expose:
+          default: true
+        exposedPort: 25826
+        protocol: UDP

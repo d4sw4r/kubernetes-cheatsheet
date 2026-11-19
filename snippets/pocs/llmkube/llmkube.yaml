@@ -1,0 +1,25 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: llmkube
+  namespace: default
+spec:
+  interval: 1h
+  url: https://defilantech.github.io/LLMKube
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: llmkube
+  namespace: default
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: llmkube
+      sourceRef:
+        kind: HelmRepository
+        name: llmkube
+        namespace: default
+      interval: 10m

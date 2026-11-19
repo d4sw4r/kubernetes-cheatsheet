@@ -1,0 +1,27 @@
+# talosctl gen config ... --config-patch @talos-patch.yaml
+machine:
+  install:
+    disk: /dev/nvme0n1
+    # Factory-Image mit Extensions (iscsi-tools, util-linux-tools für Longhorn)
+    image: factory.talos.dev/metal-installer/<schematic-id>:v1.12.2
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true  # braucht kubelet-serving-cert-approver
+cluster:
+  network:
+    cni:
+      name: custom
+      urls:
+        - https://raw.githubusercontent.com/d4sw4r/cilium-helm-template/refs/heads/main/cilium.yaml
+  proxy:
+    disabled: true  # Cilium übernimmt kube-proxy
+  apiServer:
+    admissionControl:
+      - name: PodSecurity
+        configuration:
+          defaults:
+            enforce: privileged
+  extraManifests:
+    - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+    - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+  allowSchedulingOnControlPlanes: true  # Single-Node

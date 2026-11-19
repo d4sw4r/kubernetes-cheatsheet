@@ -1,0 +1,30 @@
+# Prometheus-CR: alle Selektoren auf dasselbe Label -> nur "eigene" Configs werden geladen
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: default
+spec:
+  serviceAccountName: prometheus
+  probeSelector:
+    matchLabels:
+      prometheus: prometheus
+  scrapeConfigSelector:
+    matchLabels:
+      prometheus: prometheus
+  ruleSelector:
+    matchLabels:
+      prometheus: prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      prometheus: prometheus
+  alerting:
+    alertmanagers:
+      - namespace: default
+        name: alertmanager-service
+        port: web
+  resources:
+    requests:
+      memory: 400Mi
+  enableAdminAPI: false

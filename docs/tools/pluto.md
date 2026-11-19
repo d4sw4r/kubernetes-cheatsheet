@@ -29,8 +29,8 @@ pluto list-versions                                # Bekannte Deprecations anzei
 
 ## Gotchas / Learnings
 
-!!! note "TODO"
-    Eigene Erfahrungen ergänzen.
+- Vor jedem Cluster-Upgrade das GitOps-Repo scannen: `pluto detect-files -d .` im Root des Flux-Repos.
+- `detect-files` findet nur, was als Datei vorliegt – Charts, die Flux rendert, prüft `detect-helm` im Cluster.
 
 ## Quellen
 
