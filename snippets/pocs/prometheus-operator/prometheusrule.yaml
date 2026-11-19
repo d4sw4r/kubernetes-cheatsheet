@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rules
+  namespace: default
+  labels:
+    prometheus: prometheus
+spec:
+  groups:
+    - name: prometheus
+      rules:
+        - alert: PrometheusBadConfig
+          annotations:
+            description: Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusbadconfig
+            summary: Failed Prometheus configuration reload.
+          expr: |
+            max_over_time(prometheus_config_last_reload_successful{job="prometheus"}[5m]) == 0
+          for: 10m
+          labels:
+            severity: critical

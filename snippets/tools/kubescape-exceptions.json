@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ignore-kube-system",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": { "namespace": "kube-system" }
+      }
+    ],
+    "posturePolicies": [{ "controlID": "C-0034" }]
+  }
+]

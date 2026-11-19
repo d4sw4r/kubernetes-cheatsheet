@@ -1,0 +1,32 @@
+# Secret "discord-webhook-secret" mit Key "address" (Webhook-URL), SOPS-verschlüsselt
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  type: discord
+  secretRef:
+    name: discord-webhook-secret
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: discord-info-alert
+  namespace: flux-system
+spec:
+  eventMetadata:
+    cluster: "my-cluster"
+  providerRef:
+    name: discord
+  eventSeverity: info
+  eventSources:
+    - kind: GitRepository
+      name: "*"
+    - kind: Kustomization
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
+    - kind: ImageUpdateAutomation
+      name: "*"
