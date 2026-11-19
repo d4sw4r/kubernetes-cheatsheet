@@ -9,7 +9,7 @@ tags: [renovate, gitops, flux]
 
 === "Flux-Cluster (talos-k8s)"
 
-    Flux-Manager auf die Cluster-Manifeste, Minor/Patch automatisch mergen:
+    Flux-Manager auf alle GitOps-Ordner, Minor/Patch automatisch mergen:
 
     ```json title="snippets/renovate/flux.json"
     --8<-- "snippets/renovate/flux.json"
@@ -50,15 +50,9 @@ tags: [renovate, gitops, flux]
 
 ## Gotchas / Learnings
 
-- **Nur was im Pattern liegt, wird gefunden.** In `talos-k8s` matcht die Flux-Regel nur `^clusters/`, die HelmReleases liegen aber unter `infra/` – die werden so **nicht** aktualisiert. Besser:
-
-    ```json
-    "flux": {
-      "managerFilePatterns": ["/\\.ya?ml$/"]
-    }
-    ```
-
-- **Ohne `version` kein Update:** HelmReleases ohne `spec.chart.spec.version` (bei mir cert-manager, Longhorn, kube-prometheus-stack) kann Renovate nicht pinnen – Flux nimmt dann einfach immer die neueste Version. Version setzen, dann übernimmt Renovate.
+- **Nur was im Pattern liegt, wird gefunden.** In `talos-k8s` matchte die Flux-Regel anfangs nur `^clusters/`, die HelmReleases liegen aber unter `infra/` – die wurden so **nie** aktualisiert. Behoben in [talos-k8s#6](https://github.com/d4sw4r/talos-k8s/pull/6): das Pattern deckt jetzt alle GitOps-Ordner ab (siehe Config oben).
+- **Ohne `version` kein Update:** HelmReleases ohne `spec.chart.spec.version` kann Renovate nicht pinnen – Flux nimmt dann einfach immer die neueste Version, auch neue Majors. In `talos-k8s` waren das cert-manager, Longhorn und kube-prometheus-stack; seit [talos-k8s#6](https://github.com/d4sw4r/talos-k8s/pull/6) gepinnt.
+- **Beim Nachpinnen die aktuelle Version nehmen:** Lief ein Chart ohne `version`, ist im Cluster bereits die neueste Version installiert. Eine ältere Version zu pinnen würde ein Downgrade auslösen – vorher mit `flux get helmreleases -A` prüfen.
 - **`fileMatch` → `managerFilePatterns`:** Neuere Renovate-Versionen haben `fileMatch` umbenannt; die Migration schlägt Renovate selbst per PR vor.
 - **`config:base` ist veraltet** (noch in `exa_website_go`) – durch `config:recommended` ersetzen.
 - **`platformAutomerge: true`** nutzt GitHubs Auto-Merge: Renovate muss nicht erneut laufen, um zu mergen – braucht aber Branch Protection mit Required Checks, sonst wird sofort gemergt.

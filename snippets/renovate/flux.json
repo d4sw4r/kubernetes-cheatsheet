@@ -4,7 +4,7 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": ["^clusters/.*\\.(yaml|yml)$"]
+    "managerFilePatterns": ["/^(clusters|infra|apps|certs)/.+\\.ya?ml$/"]
   },
   "packageRules": [
     {
