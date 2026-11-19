@@ -1,0 +1,94 @@
+site_name: Kubernetes Knowledge Base
+site_description: Persönliche Wissensdatenbank zu Kubernetes, FluxCD und Tooling
+repo_url: https://github.com/d4sw4r/kubernetes-cheatsheet
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: de
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Dark Mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Light Mode
+
+plugins:
+  - search:
+      lang: [de, en]
+  - tags
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      # Snippets werden relativ zum Repo-Root aufgelöst: --8<-- "snippets/..."
+      base_path: ["."]
+      check_paths: true
+
+nav:
+  - Start: index.md
+  - Cheatsheet:
+      - cheatsheet/index.md
+      - kubectl: cheatsheet/kubectl.md
+      - Troubleshooting: cheatsheet/troubleshooting.md
+  - Konzepte:
+      - concepts/index.md
+  - Manifeste:
+      - manifests/index.md
+      - Workloads: manifests/workloads.md
+      - Networking: manifests/networking.md
+      - Storage: manifests/storage.md
+  - GitOps:
+      - FluxCD:
+          - gitops/fluxcd/index.md
+          - Bootstrap: gitops/fluxcd/bootstrap.md
+          - Sources & Kustomizations: gitops/fluxcd/kustomization.md
+          - HelmRelease: gitops/fluxcd/helmrelease.md
+          - Secrets mit SOPS: gitops/fluxcd/sops.md
+          - Debugging: gitops/fluxcd/debugging.md
+  - Tools:
+      - tools/index.md
+      - Pluto: tools/pluto.md
+      - Kubescape: tools/kubescape.md
+      - kuberadar: tools/kuberadar.md
+  - PoCs:
+      - pocs/index.md
+      - Vorlage: pocs/_template.md
+  - Inbox: inbox.md

@@ -1,0 +1,36 @@
+name: Lint snippets
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: yamllint
+        run: |
+          pip install yamllint
+          yamllint snippets/
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Install kubeconform & pluto
+        run: |
+          go install github.com/yannh/kubeconform/cmd/kubeconform@latest
+          go install github.com/fairwindsops/pluto/v5/cmd/pluto@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: kubeconform (inkl. Flux-CRDs)
+        run: |
+          kubeconform -strict -summary \
+            -schema-location default \
+            -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+            snippets/manifests/ snippets/flux/
+
+      - name: pluto (veraltete APIs)
+        run: pluto detect-files -d snippets/ -owide
